@@ -1,16 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+
+	<style type="text/css">
+		body {
+			overflow: hidden;
+		}
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		iframe {
+			border: none;
+			width: calc(100vw - 80px);
+			height: calc(100vh - 60px);
+			margin: 30px 40px;
+			display: block;
+		}
+
+		#line {
+			width: calc(100% - 20px);
+			height: 5px;
+
+			background: red;
+			position: absolute;
+			margin-left: 10px;
+		}
+
+		#box {
+		    width: calc(100vw - 80px);
+		    height: 70px;
+		    background: rgb(34 60 80 / 48%);
+		    position: absolute;
+		    margin: -90px 0 0 40px;
+
+			-webkit-box-shadow: 0px 2px 38px 37px rgb(34 60 80 / 48%);
+-moz-box-shadow: 0px 2px 38px 37px rgb(34 60 80 / 48%);
+box-shadow: 0px 2px 38px 37px rgb(34 60 80 / 48%);
+		}
+
+		#stop > svg, #play svg, #next svg {
+		    width: 40px;
+		    height: 40px;
+		}
+
+		#stop {
+			display: none;
+		}
+
+		svg {
+			color: #fff;
+		}
+
+		.button {
+			margin-top: 12px;
+            margin-left: 15px;
+            cursor: pointer;
+		}
+
+		#next {
+			margin-top: 12px;
+			margin-left: 10px;
+			cursor: pointer;
+		}
+
+		.cont {
+			display: flex;
+		}
+	</style>
 </head>
 <body>
-	<!-- <script type="text/javascript" src="midi.js"></script> -->
-	<script src="https://cdn.jsdelivr.net/npm/web-midi-player@latest/index.js"></script>
-	<script>
-    const { 'web-midi-player': { default: MidiPlayer } } = window;
-</script>
-	<button onclick="const midiPlayer = new MidiPlayer({ patchUrl: 'arachno-127.pat' }); midiPlayer.play({ url: 'Sound-1.mid' });">Play</button>
+	<iframe src="frame.html" name="player"></iframe>
+	<div id="box">
+		<div id="line"></div>
+		<div class="cont">
+			<div class="button">
+				<div id="play">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"/></svg>
+				</div>
+				<div id="stop">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3z"/></svg>
+				</div>
+			</div>
+			<div id="next">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-end" viewBox="0 0 16 16"><path d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.713 3.31 4 3.655 4 4.308v7.384c0 .653.713.998 1.233.696L11.5 8.752V12a.5.5 0 0 0 1 0V4zM5 4.633L10.804 8 5 11.367V4.633z"/></svg>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// win.onload = () => {
+		// 	win.postMessage("message", "Hello!");
+		// }
+
+		var play = document.querySelector('#play'),
+		    stop = document.querySelector('#stop');
+
+		play.onclick = function() {
+			var win = window.frames.player;
+			win.postMessage("play");
+			play.style.display = "none";
+			stop.style.display = "block";
+		}
+
+		stop.onclick = function() {
+			var win = window.frames.player;
+			win.postMessage("stop");
+			play.style.display = "block";
+			stop.style.display = "none";
+		}
+
+		document.querySelector('#next').onclick = function() {
+			var win = window.frames.player;
+			win.postMessage("next");
+			play.style.display = "none";
+			stop.style.display = "block";
+		}
+
+	</script>
 </body>
 </html>
