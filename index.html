@@ -7,7 +7,7 @@
 </head>
 <body>
 	<!-- <script type="text/javascript" src="midi.js"></script> -->
-	<script type='text/javascript' src='http://www.midijs.net/lib/midi.js'></script>
-	<button onclick="MIDIjs.play('Sound-1.mid');">Play</button>
+	<script src="https://cdn.jsdelivr.net/npm/web-midi-player@latest/index.js"></script>
+	<button onclick="const midiPlayer = new MidiPlayer(); midiPlayer.play({ url: 'Sound-1.mid' });">Play</button>
 </body>
 </html>
