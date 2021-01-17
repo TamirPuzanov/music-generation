@@ -11,6 +11,6 @@
 	<script>
     const { 'web-midi-player': { default: MidiPlayer } } = window;
 </script>
-	<button onclick="const midiPlayer = new MidiPlayer(); midiPlayer.play({ url: 'Sound-1.mid' });">Play</button>
+	<button onclick="const midiPlayer = new MidiPlayer({ patchUrl: 'arachno-127.pat' }); midiPlayer.play({ url: 'Sound-1.mid' });">Play</button>
 </body>
 </html>
